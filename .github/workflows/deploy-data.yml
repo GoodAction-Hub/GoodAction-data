@@ -24,7 +24,7 @@ jobs:
           echo $(
             ls -1 *.yml 2>/dev/null | \
             sed 's/\.yml$//' | nl | \
-            sed 's/^[[:space:]]*\([0-9]*\)[[:space:]]*\(.*\)$/\1. [\2](https:\/\/biyuanshe.github.io\/Fake-Open-Source-wiki\/\2.json)/'
+            sed 's/^[[:space:]]*\([0-9]*\)[[:space:]]*\(.*\)$/\1. [\2](https:\/\/goodaction-hub.github.io\/GoodAction-data\/\2.json)/'
           ) >> index.md
           cd -
 

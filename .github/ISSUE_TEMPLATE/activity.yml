@@ -1,0 +1,117 @@
+name: 提交公益活动 / Submit Activity
+description: 提交一个公益活动、会议或竞赛 / Submit a public welfare activity, conference, or competition
+title: "活动官方名称 / Official Activity Title"
+labels:
+  - activity
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 提交说明 / Submission Guidelines
+
+        提交后会自动创建 pull request 给开源社群审核，并由仓库维护者合并，再由自动化流水线更新到网站。
+
+        After submission, a pull request will be automatically created for open source community review, merged by repository maintainers, and then updated to the website by the automated pipeline.
+
+  - type: dropdown
+    id: type
+    attributes:
+      label: 活动类型 / Activity Type
+      description: 请选择活动类型 / Please select the activity type
+      options:
+        - meetup
+        - conference
+        - competition
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: 活动简介 / Activity Description
+      description: 活动的简要介绍 / Brief description of the activity
+      placeholder: "请描述活动的主要内容、目的和意义 / Please describe the main content, purpose, and significance of the activity"
+    validations:
+      required: true
+
+  - type: input
+    id: tags
+    attributes:
+      label: 分类标签 / Tags
+      description: 请用英文逗号分隔多个标签 / Please use commas to separate multiple tags
+      placeholder: "例如：志愿服务, 公益募捐, 上海, 线上活动 / Example: 志愿服务, 公益募捐, 上海, 线上活动"
+    validations:
+      required: true
+
+  - type: input
+    id: id
+    attributes:
+      label: 唯一 ID / Unique ID
+      description: 活动的全局唯一标识符，建议使用英文小写和连字符 / Globally unique identifier for the activity, use lowercase English and hyphens
+      placeholder: "例如：yulin-heroic-deed-fundraising-2025"
+    validations:
+      required: true
+
+  - type: input
+    id: link
+    attributes:
+      label: 活动链接 / Activity Link
+      description: 活动的官方链接或详情页面 / Official link or detail page of the activity
+      placeholder: "例如：https://mp.weixin.qq.com/s/... / Example: https://example.com/activity"
+    validations:
+      required: true
+
+  - type: input
+    id: start_time
+    attributes:
+      label: 开始时间 / Start Time
+      description: 活动开始的具体时间 / The specific date and time when the activity starts
+      placeholder: "例如：2025-10-01 09:00:00 / Example: 2025-10-01 09:00:00"
+    validations:
+      required: true
+
+  - type: input
+    id: end_time
+    attributes:
+      label: 结束时间 / End Time
+      description: 活动结束的具体时间 / The specific date and time when the activity ends
+      placeholder: "例如：2025-10-31 17:00:00 / Example: 2025-10-31 17:00:00"
+    validations:
+      required: true
+
+  - type: textarea
+    id: timeline
+    attributes:
+      label: 活动日程 / Timeline
+      description: 活动各环节的关键时间节点，使用 Markdown 表格格式 / Key milestones of the activity in Markdown table format
+      value: |
+        | 关键日期 / Deadline | 说明 / Description |
+        | --- | --- |
+        | 2025-10-19T23:59:00 | 论文征集截止 |
+        | 2025-11-15T09:00:00 | 学术年会开始 |
+
+  - type: input
+    id: timezone
+    attributes:
+      label: 时区 / Timezone
+      description: 请使用标准 IANA 时区名称 / Please use standard IANA timezone name
+      placeholder: "例如：Asia/Shanghai"
+    validations:
+      required: true
+
+  - type: input
+    id: place
+    attributes:
+      label: 活动地点 / Place
+      description: 活动地点，线上活动直接填写"线上" / Location of the activity; write "线上" for online events
+      placeholder: "例如：中国，上海 或 线上 / Example: 中国，上海 or 线上"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: 我确认 / I Confirm
+      options:
+        - label: 提供的信息真实准确 / The information provided is truthful and accurate
+          required: true

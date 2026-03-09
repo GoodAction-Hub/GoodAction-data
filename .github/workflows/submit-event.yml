@@ -1,4 +1,4 @@
-name: Fake Open Source event saving
+name: Activity submission
 
 on:
   issues:
@@ -8,7 +8,7 @@ on:
 jobs:
   store:
     runs-on: ubuntu-latest
-    if: "contains(github.event.issue.labels.*.name, 'event')"
+    if: "contains(github.event.issue.labels.*.name, 'activity')"
     permissions:
       contents: write
     steps:
@@ -17,25 +17,27 @@ jobs:
       - id: issue-parser
         uses: stefanbuck/github-issue-parser@v3
         with:
-          template-path: ".github/ISSUE_TEMPLATE/Fake-Open-Source-event.yml"
+          template-path: ".github/ISSUE_TEMPLATE/activity.yml"
 
-      - name: Save issue to Markdown & YAML
+      - name: Save activity to YAML
         env:
           ISSUE_NUMBER: ${{ github.event.issue.number }}
           ISSUE_LINK: ${{ github.event.issue.html_url }}
           ISSUE_TITLE: ${{ github.event.issue.title }}
-          ISSUE_BODY: ${{ github.event.issue.body }}
-          EVENT_TAGS: ${{ steps.issue-parser.outputs.issueparser_tags }}
-          EVENT_START_TIME: ${{ steps.issue-parser.outputs.issueparser_start_time }}
-          EVENT_END_TIME: ${{ steps.issue-parser.outputs.issueparser_end_time }}
-          EVENT_LOCATION: ${{ steps.issue-parser.outputs.issueparser_location }}
-          EVENT_WHISTLEBLOWER: ${{ github.event.issue.user.html_url }}
-          EVENT_HYPOCRITE: ${{ steps.issue-parser.outputs.issueparser_hypocrite }}
-          EVENT_MONEY: ${{ steps.issue-parser.outputs.issueparser_money }}
+          ACTIVITY_TYPE: ${{ steps.issue-parser.outputs.issueparser_type }}
+          ACTIVITY_DESCRIPTION: ${{ steps.issue-parser.outputs.issueparser_description }}
+          ACTIVITY_TAGS: ${{ steps.issue-parser.outputs.issueparser_tags }}
+          ACTIVITY_ID: ${{ steps.issue-parser.outputs.issueparser_id }}
+          ACTIVITY_LINK: ${{ steps.issue-parser.outputs.issueparser_link }}
+          ACTIVITY_START_TIME: ${{ steps.issue-parser.outputs.issueparser_start_time }}
+          ACTIVITY_END_TIME: ${{ steps.issue-parser.outputs.issueparser_end_time }}
+          ACTIVITY_TIMELINE: ${{ steps.issue-parser.outputs.issueparser_timeline }}
+          ACTIVITY_TIMEZONE: ${{ steps.issue-parser.outputs.issueparser_timezone }}
+          ACTIVITY_PLACE: ${{ steps.issue-parser.outputs.issueparser_place }}
         run: |
           bash .github/scripts/save-event.sh
 
       - uses: peter-evans/create-pull-request@v8
         with:
-          title: "docs(event): add data of ${{ github.event.issue.title }}"
+          title: "data(activity): add ${{ github.event.issue.title }}"
           body: "fix #${{ github.event.issue.number }}"

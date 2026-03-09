@@ -1,0 +1,42 @@
+name: Restaurant submission
+
+on:
+  issues:
+    types:
+      - opened
+
+jobs:
+  store:
+    runs-on: ubuntu-latest
+    if: "contains(github.event.issue.labels.*.name, 'restaurant')"
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v6
+
+      - id: issue-parser
+        uses: stefanbuck/github-issue-parser@v3
+        with:
+          template-path: ".github/ISSUE_TEMPLATE/restaurant.yml"
+
+      - name: Save restaurant to YAML
+        env:
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_LINK: ${{ github.event.issue.html_url }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          RESTAURANT_ID: ${{ steps.issue-parser.outputs.issueparser_id }}
+          RESTAURANT_DESCRIPTION: ${{ steps.issue-parser.outputs.issueparser_description }}
+          RESTAURANT_FEATURES: ${{ steps.issue-parser.outputs.issueparser_features }}
+          RESTAURANT_FOOD: ${{ steps.issue-parser.outputs.issueparser_food }}
+          RESTAURANT_AVG_SPEND: ${{ steps.issue-parser.outputs.issueparser_avg_spend }}
+          RESTAURANT_SOCIAL_VALUES: ${{ steps.issue-parser.outputs.issueparser_social_values }}
+          RESTAURANT_ADDRESS: ${{ steps.issue-parser.outputs.issueparser_address }}
+          RESTAURANT_LAT: ${{ steps.issue-parser.outputs.issueparser_lat }}
+          RESTAURANT_LNG: ${{ steps.issue-parser.outputs.issueparser_lng }}
+        run: |
+          bash .github/scripts/save-restaurant.sh
+
+      - uses: peter-evans/create-pull-request@v8
+        with:
+          title: "data(restaurant): add ${{ github.event.issue.title }}"
+          body: "fix #${{ github.event.issue.number }}"

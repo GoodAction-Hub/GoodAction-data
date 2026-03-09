@@ -28,7 +28,8 @@ jobs:
           RESTAURANT_DESCRIPTION: ${{ steps.issue-parser.outputs.issueparser_description }}
           RESTAURANT_FEATURES: ${{ steps.issue-parser.outputs.issueparser_features }}
           RESTAURANT_FOOD: ${{ steps.issue-parser.outputs.issueparser_food }}
-          RESTAURANT_VALUE: ${{ steps.issue-parser.outputs.issueparser_value }}
+          RESTAURANT_AVG_SPEND: ${{ steps.issue-parser.outputs.issueparser_avg_spend }}
+          RESTAURANT_SOCIAL_VALUES: ${{ steps.issue-parser.outputs.issueparser_social_values }}
           RESTAURANT_ADDRESS: ${{ steps.issue-parser.outputs.issueparser_address }}
           RESTAURANT_LAT: ${{ steps.issue-parser.outputs.issueparser_lat }}
           RESTAURANT_LNG: ${{ steps.issue-parser.outputs.issueparser_lng }}

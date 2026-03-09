@@ -1,29 +1,39 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-yaml_escape() {
-  printf '%s' "$1" | sed 's/\\/\\\\/g; s/"/\\"/g'
-}
+# shellcheck source=yaml_utils.sh
+source "$(dirname "$0")/yaml_utils.sh"
 
-append_yaml_split_array() {
+# Parse a Markdown table into YAML food entries.
+# Expected table format (header row + separator row + data rows):
+#   | 品名 / Dish | 价格 / Price |
+#   | --- | --- |
+#   | 招牌咖啡 | ¥35 |
+append_yaml_food_table() {
   local file_path="$1"
-  local indent="$2"
-  local key="$3"
-  local value="$4"
-  local has_items=0
+  local table="$2"
+  local indent="$3"
+  local has_rows=0
 
-  printf '%s%s:\n' "$indent" "$key" >> "$file_path"
+  while IFS= read -r line; do
+    [[ "$line" =~ ^\| ]] || continue
+    [[ "$line" =~ ^\|[[:space:]]*-+[[:space:]]*\| ]] && continue
 
-  while IFS= read -r item; do
-    if [ -n "$item" ]; then
-      has_items=1
-      printf '%s  - "%s"\n' "$indent" "$(yaml_escape "$item")" >> "$file_path"
+    local name price
+    name=$(printf '%s' "$line" | awk -F'|' '{gsub(/^[[:space:]]+|[[:space:]]+$/, "", $2); print $2}')
+    price=$(printf '%s' "$line" | awk -F'|' '{gsub(/^[[:space:]]+|[[:space:]]+$/, "", $3); print $3}')
+
+    # Skip header row (name column contains non-digit non-Chinese characters typical of headers)
+    [ -z "$name" ] && continue
+    [[ "$name" =~ ^(品名|Dish|名称|Name) ]] && continue
+
+    if [ "$has_rows" -eq 0 ]; then
+      printf '%sfood:\n' "$indent" >> "$file_path"
     fi
-  done < <(printf '%s' "$value" | awk 'BEGIN{FS="[,，[:space:]]+"} {for (i=1; i<=NF; i++) if ($i != "") print $i}')
-
-  if [ "$has_items" -eq 0 ]; then
-    printf '%s  []\n' "$indent" >> "$file_path"
-  fi
+    has_rows=1
+    printf '%s  - name: "%s"\n' "$indent" "$(yaml_escape "$name")" >> "$file_path"
+    printf '%s    price: "%s"\n' "$indent" "$(yaml_escape "$price")" >> "$file_path"
+  done <<< "$table"
 }
 
 RESTAURANTS_FILE="${RESTAURANTS_FILE_PATH:-data/restaurants.yml}"
@@ -36,9 +46,15 @@ RESTAURANTS_FILE="${RESTAURANTS_FILE_PATH:-data/restaurants.yml}"
 
 append_yaml_split_array "$RESTAURANTS_FILE" "  " "features" "${RESTAURANT_FEATURES:-}"
 
+append_yaml_food_table "$RESTAURANTS_FILE" "${RESTAURANT_FOOD:-}" "  "
+
 {
-  printf '  food: "%s"\n' "$(yaml_escape "${RESTAURANT_FOOD:-}")"
-  printf '  value: "%s"\n' "$(yaml_escape "${RESTAURANT_VALUE:-}")"
+  printf '  avg_spend: "%s"\n' "$(yaml_escape "${RESTAURANT_AVG_SPEND:-}")"
+} >> "$RESTAURANTS_FILE"
+
+append_yaml_split_array "$RESTAURANTS_FILE" "  " "social_values" "${RESTAURANT_SOCIAL_VALUES:-}"
+
+{
   printf '  address: "%s"\n' "$(yaml_escape "${RESTAURANT_ADDRESS:-}")"
   printf '  lat: "%s"\n' "$(yaml_escape "${RESTAURANT_LAT:-}")"
   printf '  lng: "%s"\n' "$(yaml_escape "${RESTAURANT_LNG:-}")"

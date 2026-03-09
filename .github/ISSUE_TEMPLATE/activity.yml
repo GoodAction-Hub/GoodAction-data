@@ -44,15 +44,6 @@ body:
       required: true
 
   - type: input
-    id: year
-    attributes:
-      label: 年份 / Year
-      description: 活动举办年份 / Year the activity takes place
-      placeholder: "例如：2025"
-    validations:
-      required: true
-
-  - type: input
     id: id
     attributes:
       label: 唯一 ID / Unique ID

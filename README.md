@@ -6,9 +6,9 @@ This repository is the standalone data repository for [GoodAction Hub](https://g
 
 ## 功能入口 / Features
 
-- [提交公益活动 / Submit Activity][1]
-- [提交公益会议 / Submit Conference][2]
-- [提交公益竞赛 / Submit Competition][3]
+- [提交活动 / Submit Activity][1]
+- [审核列表 / Review List][2]
+- [JSON API][3]
 
 ## 如何添加活动数据 / How to Add Activity Data
 
@@ -47,7 +47,6 @@ We warmly welcome community contributions! If you find unlisted public welfare c
         - deadline: '2025-11-16T17:00:00'
           comment: '学术年会结束'
       timezone: Asia/Shanghai # 所在时区
-      date: 2025年11月15日-11月16日 # 人类可读的日期范围
       place: 中国，北京 # 地点
 ```
 
@@ -56,7 +55,6 @@ We warmly welcome community contributions! If you find unlisted public welfare c
 - `category`: 必须是 `conference`、`competition` 或 `activity`
 - `timeline.deadline`: 请使用 ISO 8601 标准格式 - `YYYY-MM-DDTHH:mm:ss`
 - `timezone`: 请使用标准的 IANA 时区名称（例如 `Asia/Shanghai`），否则会影响时区转换
-- `date`: 请使用人类可读的单个日期或日期范围，如 `2025年4月30日` 或 `2025年4月30日-9月30日`
 - `place`: 活动地址，如 `中国，上海`（`国家，城市`）；如果是线上活动，直接写 `线上`
 
 💡 **新手友好提示**：如果您不熟悉 Pull Request 流程，也可以通过 Issues 方式提交活动信息，我们来帮您添加。
@@ -64,5 +62,5 @@ We warmly welcome community contributions! If you find unlisted public welfare c
 > 🎉 **每一份贡献都很珍贵，欢迎您的参与！**
 
 [1]: https://github.com/GoodAction-Hub/GoodAction-data/issues/new?template=activity.yml
-[2]: https://github.com/GoodAction-Hub/GoodAction-data/issues/new?template=conference.yml
-[3]: https://github.com/GoodAction-Hub/GoodAction-data/issues/new?template=competition.yml
+[2]: https://github.com/GoodAction-Hub/GoodAction-data/pulls
+[3]: https://goodaction-hub.github.io/GoodAction-data/

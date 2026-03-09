@@ -1,6 +1,6 @@
 name: 提交公益活动 / Submit Activity
-description: 提交一个公益活动信息，添加到 data/activities.yml / Submit a public welfare activity to be added to data/activities.yml
-title: "[活动] 活动名称 / [Activity] Activity Title"
+description: 提交一个公益活动、会议或竞赛 / Submit a public welfare activity, conference, or competition
+title: "活动官方名称 / Official Activity Title"
 labels:
   - activity
 body:
@@ -9,15 +9,19 @@ body:
       value: |
         ## 提交说明 / Submission Guidelines
 
-        请参考 [数据结构说明](../blob/main/README.md#数据结构) 填写以下信息，您提交的活动将被添加到 `data/activities.yml`。
-        Please refer to the [data structure documentation](../blob/main/README.md#数据结构) and fill in the following fields. Your submission will be added to `data/activities.yml`.
+        提交后会自动创建 pull request 给开源社群审核，并由仓库维护者合并，再由自动化流水线更新到网站。
 
-  - type: input
-    id: title
+        After submission, a pull request will be automatically created for open source community review, merged by repository maintainers, and then updated to the website by the automated pipeline.
+
+  - type: dropdown
+    id: type
     attributes:
-      label: 活动名称 / Activity Title
-      description: 活动的完整名称 / Full name of the activity
-      placeholder: "例如：第三届老龄志愿与公益服务学术论坛 / Example: 3rd Academic Forum on Elderly Volunteering and Public Welfare Services"
+      label: 活动类型 / Activity Type
+      description: 请选择活动类型 / Please select the activity type
+      options:
+        - meetup
+        - conference
+        - competition
     validations:
       required: true
 
@@ -66,14 +70,21 @@ body:
     validations:
       required: true
 
-  - type: textarea
-    id: timeline
+  - type: input
+    id: start_time
     attributes:
-      label: 关键时间节点 / Timeline
-      description: 每行一个时间节点，格式为"ISO 8601 日期 | 说明"，例如"2025-10-19T23:59:00 | 报名截止" / One timeline entry per line, format "ISO 8601 date | comment"
-      placeholder: |
-        2025-10-01T09:00:00 | 活动开始 / Activity starts
-        2025-10-31T17:00:00 | 活动结束 / Activity ends
+      label: 开始时间 / Start Time
+      description: 活动开始的具体时间 / The specific date and time when the activity starts
+      placeholder: "例如：2025-10-01 09:00:00 / Example: 2025-10-01 09:00:00"
+    validations:
+      required: true
+
+  - type: input
+    id: end_time
+    attributes:
+      label: 结束时间 / End Time
+      description: 活动结束的具体时间 / The specific date and time when the activity ends
+      placeholder: "例如：2025-10-31 17:00:00 / Example: 2025-10-31 17:00:00"
     validations:
       required: true
 
@@ -83,15 +94,6 @@ body:
       label: 时区 / Timezone
       description: 请使用标准 IANA 时区名称 / Please use standard IANA timezone name
       placeholder: "例如：Asia/Shanghai"
-    validations:
-      required: true
-
-  - type: input
-    id: date
-    attributes:
-      label: 人类可读日期 / Human-readable Date
-      description: 人类可读的日期或日期范围 / Human-readable date or date range
-      placeholder: "例如：2025年10月1日 或 2025年10月1日-10月31日"
     validations:
       required: true
 
@@ -110,6 +112,4 @@ body:
       label: 我确认 / I Confirm
       options:
         - label: 提供的信息真实准确 / The information provided is truthful and accurate
-          required: true
-        - label: 我已阅读数据结构说明 / I have read the data structure documentation
           required: true

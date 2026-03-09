@@ -42,6 +42,13 @@ If you are familiar with Git and Pull Requests, you can also directly edit `data
       link: https://mp.weixin.qq.com/s/qi9gF1ETgk6UvFnnGNSVlg # 链接
       start_time: '2025-11-15 09:00:00' # 开始时间
       end_time: '2025-11-16 17:00:00' # 结束时间
+      timeline:
+        - deadline: '2025-10-19T23:59:00' # 关键日期 (ISO 8601 格式)
+          comment: '论文征集截止' # 日期说明
+        - deadline: '2025-11-15T09:00:00'
+          comment: '学术年会开始'
+        - deadline: '2025-11-16T17:00:00'
+          comment: '学术年会结束'
       timezone: Asia/Shanghai # 所在时区
       place: 中国，北京 # 地点
 ```
@@ -49,7 +56,8 @@ If you are familiar with Git and Pull Requests, you can also directly edit `data
 **注意事项 / Notes:**
 
 - `category`: 必须是 `meetup`、`conference` 或 `competition`
-- `start_time` / `end_time`: 格式为 `YYYY-MM-DD HH:mm:ss`
+- `start_time` / `end_time`: 活动整体的开始和结束时间，格式为 `YYYY-MM-DD HH:mm:ss`
+- `timeline.deadline`: 每个环节的关键时间节点，请使用 ISO 8601 标准格式 - `YYYY-MM-DDTHH:mm:ss`
 - `timezone`: 请使用标准的 IANA 时区名称（例如 `Asia/Shanghai`），否则会影响时区转换
 - `place`: 活动地址，如 `中国，上海`（`国家，城市`）；如果是线上活动，直接写 `线上`
 

@@ -79,6 +79,17 @@ body:
     validations:
       required: true
 
+  - type: textarea
+    id: timeline
+    attributes:
+      label: 活动日程 / Timeline
+      description: 活动各环节的关键时间节点，使用 Markdown 表格格式 / Key milestones of the activity in Markdown table format
+      placeholder: |
+        | 关键日期 / Deadline | 说明 / Description |
+        | --- | --- |
+        | 2025-10-19T23:59:00 | 论文征集截止 |
+        | 2025-11-15T09:00:00 | 学术年会开始 |
+
   - type: input
     id: timezone
     attributes:

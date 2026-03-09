@@ -1,0 +1,37 @@
+name: Data deployment
+on:
+  push:
+    branches:
+      - main
+jobs:
+  Build-and-Deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+
+      - name: YAML to JSON
+        run: |
+          find data/ -type f | grep -Ei .+\.yml | sed -E 's/(.+)\.yml/\1/' | xargs -I {} npx yaml-convert -j {}.yml -o {}.json
+
+          cp README.md data/index.md
+          cd data/
+
+          echo -e "\n## 数据接口 / Data Interface\n" >> index.md
+          echo $(
+            ls -1 *.yml 2>/dev/null | \
+            sed 's/\.yml$//' | nl | \
+            sed 's/^[[:space:]]*\([0-9]*\)[[:space:]]*\(.*\)$/\1. [\2](https:\/\/biyuanshe.github.io\/Fake-Open-Source-wiki\/\2.json)/'
+          ) >> index.md
+          cd -
+
+      - name: Deploy to GitHub pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          publish_dir: ./data
+          enable_jekyll: true
+          personal_token: ${{ github.token }}
+          force_orphan: true

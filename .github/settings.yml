@@ -60,6 +60,10 @@ labels:
     color: "#e4e669"
     description: Public welfare competition / 公益竞赛
 
+  - name: restaurant
+    color: "#fbca04"
+    description: Accessible restaurant / 无障碍友好餐厅
+
 branches:
   - name: main
     # https://docs.github.com/en/rest/reference/repos#update-branch-protection

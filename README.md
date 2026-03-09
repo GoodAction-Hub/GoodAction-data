@@ -7,6 +7,7 @@ This repository is the standalone data repository for [GoodAction Hub](https://g
 ## 功能入口 / Features
 
 - [提交活动 / Submit Activity][1]
+- [提交餐厅 / Submit Restaurant][4]
 - [审核列表 / Review List][2]
 - [JSON API][3]
 
@@ -63,10 +64,47 @@ If you are familiar with Git and Pull Requests, you can also directly edit `data
 
 > 🎉 **每一份贡献都很珍贵，欢迎您的参与！**
 
+## 如何添加餐厅数据 / How to Add Restaurant Data
+
+💡 **新手友好**：推荐通过上方功能入口的"[提交餐厅][4]"链接来提交，填写表单即可。
+
+💡 **Beginner-friendly**: It is recommended to submit via the "[Submit Restaurant][4]" link above — just fill in a form.
+
+所有餐厅数据都存储在 `data/restaurants.yml` 中。
+
+All restaurant data is stored in `data/restaurants.yml`.
+
+如果您熟悉 Git 和 Pull Request 流程，也可以直接编辑 `data/restaurants.yml` 并提交 Pull Request。
+
+If you are familiar with Git and Pull Requests, you can also directly edit `data/restaurants.yml` and submit a Pull Request.
+
+## 餐厅数据结构 / Restaurant Data Structure
+
+请在 `data/restaurants.yml` 中，仿照以下格式添加新条目：
+
+```yaml
+- id: aimer-coffee-shanghai # 全局唯一的 ID
+  name: 爱默咖啡 # 餐厅名称（即 Issue 标题）
+  description: 一家提供手语服务、无障碍通道的温暖咖啡馆
+  features:
+    - 手语服务
+    - 无障碍通道
+    - 盲文菜单
+  food: 咖啡、甜品
+  value: 提供残障友好服务与就业机会
+  address: 上海市静安区示例路1号
+  lat: "31.2304" # GPS 纬度
+  lng: "121.4737" # GPS 经度
+  issue_link: https://github.com/GoodAction-Hub/GoodAction-data/issues/1
+```
+
+> 🎉 **每一份贡献都很珍贵，欢迎您的参与！**
+
 ## 灵感来源 / Inspiration
 
-- [GoodAction-Hub/GoodAction-Hub.github.io](https://github.com/GoodAction-Hub/GoodAction-Hub.github.io)
+- [BiYuanShe/Fake-Open-Source-wiki](https://github.com/BiYuanShe/Fake-Open-Source-wiki)
 
 [1]: https://github.com/GoodAction-Hub/GoodAction-data/issues/new?template=activity.yml
 [2]: https://github.com/GoodAction-Hub/GoodAction-data/pulls
 [3]: https://goodaction-hub.github.io/GoodAction-data/
+[4]: https://github.com/GoodAction-Hub/GoodAction-data/issues/new?template=restaurant.yml

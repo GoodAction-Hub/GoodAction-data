@@ -1,0 +1,86 @@
+name: 提交无障碍友好餐厅 / Submit Accessible Restaurant
+description: 提交一家无障碍友好的餐厅 / Submit an accessibility-friendly restaurant
+title: "餐厅官方名称 / Official Restaurant Name"
+labels:
+  - restaurant
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 提交说明 / Submission Guidelines
+
+        提交后会自动创建 pull request 给开源社群审核，并由仓库维护者合并，再由自动化流水线更新到网站。
+
+        After submission, a pull request will be automatically created for open source community review, merged by repository maintainers, and then updated to the website by the automated pipeline.
+
+  - type: input
+    id: id
+    attributes:
+      label: 唯一 ID / Unique ID
+      description: 餐厅的全局唯一标识符，建议使用英文小写和连字符 / Globally unique identifier, use lowercase English and hyphens
+      placeholder: "例如：aimer-coffee-shanghai"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: 餐厅简介 / Description
+      description: 餐厅的简要介绍 / Brief description of the restaurant
+      placeholder: "请描述餐厅的特色与无障碍友好服务 / Please describe the restaurant's features and accessibility services"
+    validations:
+      required: true
+
+  - type: input
+    id: features
+    attributes:
+      label: 无障碍特色服务 / Accessibility Features
+      description: 请用英文逗号分隔多个特色服务 / Please use commas to separate multiple features
+      placeholder: "例如：手语服务, 无障碍通道, 盲文菜单 / Example: 手语服务, 无障碍通道, 盲文菜单"
+    validations:
+      required: true
+
+  - type: input
+    id: food
+    attributes:
+      label: 特色美食 / Specialty Food
+      description: 餐厅的招牌菜品或饮品 / Signature dishes or drinks
+      placeholder: "例如：咖啡、甜品 / Example: 咖啡、甜品"
+
+  - type: input
+    id: value
+    attributes:
+      label: 社会价值 / Social Value
+      description: 餐厅的社会价值或人均消费等 / Social value of the restaurant or average spend
+      placeholder: "例如：提供残障友好服务与就业机会 / Example: 提供残障友好服务与就业机会"
+
+  - type: input
+    id: address
+    attributes:
+      label: 地址 / Address
+      description: 餐厅的详细地址 / Detailed address of the restaurant
+      placeholder: "例如：上海市静安区示例路1号 / Example: 上海市静安区示例路1号"
+    validations:
+      required: true
+
+  - type: input
+    id: lat
+    attributes:
+      label: 纬度 / Latitude
+      description: 餐厅的 GPS 纬度坐标（可从地图应用获取）/ GPS latitude coordinate (can be obtained from map apps)
+      placeholder: "例如：31.2304"
+
+  - type: input
+    id: lng
+    attributes:
+      label: 经度 / Longitude
+      description: 餐厅的 GPS 经度坐标（可从地图应用获取）/ GPS longitude coordinate (can be obtained from map apps)
+      placeholder: "例如：121.4737"
+
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: 我确认 / I Confirm
+      options:
+        - label: 提供的信息真实准确 / The information provided is truthful and accurate
+          required: true

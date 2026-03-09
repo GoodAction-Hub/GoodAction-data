@@ -1,0 +1,115 @@
+name: 提交公益活动 / Submit Activity
+description: 提交一个公益活动信息，添加到 data/activities.yml / Submit a public welfare activity to be added to data/activities.yml
+title: "[活动] 活动名称 / [Activity] Activity Title"
+labels:
+  - activity
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 提交说明 / Submission Guidelines
+
+        请参考 [数据结构说明](../blob/main/README.md#数据结构) 填写以下信息，您提交的活动将被添加到 `data/activities.yml`。
+        Please refer to the [data structure documentation](../blob/main/README.md#数据结构) and fill in the following fields. Your submission will be added to `data/activities.yml`.
+
+  - type: input
+    id: title
+    attributes:
+      label: 活动名称 / Activity Title
+      description: 活动的完整名称 / Full name of the activity
+      placeholder: "例如：第三届老龄志愿与公益服务学术论坛 / Example: 3rd Academic Forum on Elderly Volunteering and Public Welfare Services"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: 活动简介 / Activity Description
+      description: 活动的简要介绍 / Brief description of the activity
+      placeholder: "请描述活动的主要内容、目的和意义 / Please describe the main content, purpose, and significance of the activity"
+    validations:
+      required: true
+
+  - type: input
+    id: tags
+    attributes:
+      label: 分类标签 / Tags
+      description: 请用英文逗号分隔多个标签 / Please use commas to separate multiple tags
+      placeholder: "例如：志愿服务, 公益募捐, 上海, 线上活动 / Example: 志愿服务, 公益募捐, 上海, 线上活动"
+    validations:
+      required: true
+
+  - type: input
+    id: year
+    attributes:
+      label: 年份 / Year
+      description: 活动举办年份 / Year the activity takes place
+      placeholder: "例如：2025"
+    validations:
+      required: true
+
+  - type: input
+    id: id
+    attributes:
+      label: 唯一 ID / Unique ID
+      description: 活动的全局唯一标识符，建议使用英文小写和连字符 / Globally unique identifier for the activity, use lowercase English and hyphens
+      placeholder: "例如：yulin-heroic-deed-fundraising-2025"
+    validations:
+      required: true
+
+  - type: input
+    id: link
+    attributes:
+      label: 活动链接 / Activity Link
+      description: 活动的官方链接或详情页面 / Official link or detail page of the activity
+      placeholder: "例如：https://mp.weixin.qq.com/s/... / Example: https://example.com/activity"
+    validations:
+      required: true
+
+  - type: textarea
+    id: timeline
+    attributes:
+      label: 关键时间节点 / Timeline
+      description: 每行一个时间节点，格式为"ISO 8601 日期 | 说明"，例如"2025-10-19T23:59:00 | 报名截止" / One timeline entry per line, format "ISO 8601 date | comment"
+      placeholder: |
+        2025-10-01T09:00:00 | 活动开始 / Activity starts
+        2025-10-31T17:00:00 | 活动结束 / Activity ends
+    validations:
+      required: true
+
+  - type: input
+    id: timezone
+    attributes:
+      label: 时区 / Timezone
+      description: 请使用标准 IANA 时区名称 / Please use standard IANA timezone name
+      placeholder: "例如：Asia/Shanghai"
+    validations:
+      required: true
+
+  - type: input
+    id: date
+    attributes:
+      label: 人类可读日期 / Human-readable Date
+      description: 人类可读的日期或日期范围 / Human-readable date or date range
+      placeholder: "例如：2025年10月1日 或 2025年10月1日-10月31日"
+    validations:
+      required: true
+
+  - type: input
+    id: place
+    attributes:
+      label: 活动地点 / Place
+      description: 活动地点，线上活动直接填写"线上" / Location of the activity; write "线上" for online events
+      placeholder: "例如：中国，上海 或 线上 / Example: 中国，上海 or 线上"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: 我确认 / I Confirm
+      options:
+        - label: 提供的信息真实准确 / The information provided is truthful and accurate
+          required: true
+        - label: 我已阅读数据结构说明 / I have read the data structure documentation
+          required: true

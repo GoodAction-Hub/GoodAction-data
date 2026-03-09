@@ -48,9 +48,17 @@ labels:
     color: "#ffffff"
     description: This will not be worked on
 
-  - name: event
+  - name: activity
     color: "#0e8a16"
-    description: Fake Open Source event
+    description: Public welfare activity / 公益活动
+
+  - name: conference
+    color: "#1d76db"
+    description: Public welfare conference / 公益会议
+
+  - name: competition
+    color: "#e4e669"
+    description: Public welfare competition / 公益竞赛
 
 branches:
   - name: main

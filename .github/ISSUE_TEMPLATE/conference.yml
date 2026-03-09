@@ -1,0 +1,116 @@
+name: 提交公益会议 / Submit Conference
+description: 提交一个公益会议信息，添加到 data/conferences.yml / Submit a public welfare conference to be added to data/conferences.yml
+title: "[会议] 会议名称 / [Conference] Conference Title"
+labels:
+  - conference
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 提交说明 / Submission Guidelines
+
+        请参考 [数据结构说明](../blob/main/README.md#数据结构) 填写以下信息，您提交的会议将被添加到 `data/conferences.yml`。
+        Please refer to the [data structure documentation](../blob/main/README.md#数据结构) and fill in the following fields. Your submission will be added to `data/conferences.yml`.
+
+  - type: input
+    id: title
+    attributes:
+      label: 会议名称 / Conference Title
+      description: 会议的完整名称 / Full name of the conference
+      placeholder: "例如：第六届公益慈善理论与政策研讨会 / Example: 6th Seminar on Charity Theory and Policy"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: 会议简介 / Conference Description
+      description: 会议的简要介绍 / Brief description of the conference
+      placeholder: "请描述会议的主要议题、目的和意义 / Please describe the main topics, purpose, and significance of the conference"
+    validations:
+      required: true
+
+  - type: input
+    id: tags
+    attributes:
+      label: 分类标签 / Tags
+      description: 请用英文逗号分隔多个标签 / Please use commas to separate multiple tags
+      placeholder: "例如：公益慈善, 理论研究, 政策研讨, 社会保障 / Example: 公益慈善, 理论研究, 政策研讨"
+    validations:
+      required: true
+
+  - type: input
+    id: year
+    attributes:
+      label: 年份 / Year
+      description: 会议举办年份 / Year the conference takes place
+      placeholder: "例如：2025"
+    validations:
+      required: true
+
+  - type: input
+    id: id
+    attributes:
+      label: 唯一 ID / Unique ID
+      description: 会议的全局唯一标识符，建议使用英文小写和连字符 / Globally unique identifier for the conference, use lowercase English and hyphens
+      placeholder: "例如：charity-theory-policy-conference-2025"
+    validations:
+      required: true
+
+  - type: input
+    id: link
+    attributes:
+      label: 会议链接 / Conference Link
+      description: 会议的官方链接或详情页面 / Official link or detail page of the conference
+      placeholder: "例如：https://mp.weixin.qq.com/s/... / Example: https://example.com/conference"
+    validations:
+      required: true
+
+  - type: textarea
+    id: timeline
+    attributes:
+      label: 关键时间节点 / Timeline
+      description: 每行一个时间节点，格式为"ISO 8601 日期 | 说明"，例如"2025-10-31T23:59:00 | 论文投稿截止" / One timeline entry per line, format "ISO 8601 date | comment"
+      placeholder: |
+        2025-10-31T23:59:00 | 论文投稿截止 / Paper submission deadline
+        2025-12-06T09:00:00 | 会议开始 / Conference starts
+        2025-12-07T17:00:00 | 会议结束 / Conference ends
+    validations:
+      required: true
+
+  - type: input
+    id: timezone
+    attributes:
+      label: 时区 / Timezone
+      description: 请使用标准 IANA 时区名称 / Please use standard IANA timezone name
+      placeholder: "例如：Asia/Shanghai"
+    validations:
+      required: true
+
+  - type: input
+    id: date
+    attributes:
+      label: 人类可读日期 / Human-readable Date
+      description: 人类可读的日期或日期范围 / Human-readable date or date range
+      placeholder: "例如：2025年12月6日 或 2025年12月6日-12月7日"
+    validations:
+      required: true
+
+  - type: input
+    id: place
+    attributes:
+      label: 会议地点 / Place
+      description: 会议地点，线上会议直接填写"线上" / Location of the conference; write "线上" for online conferences
+      placeholder: "例如：中国，北京 或 线上 / Example: 中国，北京 or 线上"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: 我确认 / I Confirm
+      options:
+        - label: 提供的信息真实准确 / The information provided is truthful and accurate
+          required: true
+        - label: 我已阅读数据结构说明 / I have read the data structure documentation
+          required: true

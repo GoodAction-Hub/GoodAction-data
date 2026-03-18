@@ -48,6 +48,10 @@ labels:
     color: "#ffffff"
     description: This will not be worked on
 
+  - name: reward
+    color: "#ff0000"
+    description: Reward for contribution / 贡献奖励
+
   - name: activity
     color: "#0e8a16"
     description: Public welfare activity / 公益活动

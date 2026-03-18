@@ -1,1 +1,3 @@
-data/events.json
+data/*.json
+data/*.md
+.vercel/

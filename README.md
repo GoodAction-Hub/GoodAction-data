@@ -19,6 +19,7 @@ This repository is the standalone data repository for [GoodAction Hub](https://g
 
 - 活动数据存储在 `data/activities.yml`，`category` 字段区分类型（`meetup`、`conference`、`competition`）。
 - 餐厅数据存储在 `data/restaurants.yml`。
+- 志愿辅导课程清单存储在 `data/tutoring.yml`，每门课的正文 Markdown 与素材分别放在 `data/tutoring/courses/<slug>.md` 和 `data/tutoring/assets/<slug>/`。
 
 All activity data is stored in `data/activities.yml`; all restaurant data is stored in `data/restaurants.yml`.
 
@@ -91,6 +92,40 @@ If you are familiar with Git and Pull Requests, you can also directly edit the c
   lng: "121.4737" # GPS 经度
   issue_link: https://github.com/GoodAction-Hub/GoodAction-data/issues/1
 ```
+
+### 志愿辅导课程 / Tutoring Courses
+
+在 `data/tutoring.yml` 中添加课程条目：
+
+```yaml
+- slug: classroom-management-101 # 全局唯一的 ID（用作 URL）
+  title: 课堂管理入门
+  instructor: 张老师
+  stage: K12 # 学段
+  duration_min: 45
+  tags:
+    - 新手
+    - 课堂管理
+  summary: 一句话简介
+  cover: tutoring/assets/classroom-management-101/cover.jpg
+  body: tutoring/courses/classroom-management-101.md
+  videos: # 可选，外链视频
+    - title: 示范课片段
+      url: https://www.bilibili.com/video/BVxxx
+  audios: # 可选，可放仓库 raw 链接或外链
+    - title: 经验分享
+      url: tutoring/assets/classroom-management-101/share.mp3
+  attachments: # 可选，PDF / 课件等
+    - title: 海报模板
+      url: tutoring/assets/classroom-management-101/poster.pdf
+```
+
+**注意事项 / Notes:**
+
+- `slug`：英文小写、用短横线连接；它会作为 URL `/tutoring/<slug>`。
+- `body`：相对路径，指向 `data/` 目录下的 Markdown 文件。
+- 素材路径如果只写相对路径（如 `tutoring/assets/.../cover.jpg`），站点会自动拼成 `raw.githubusercontent.com` URL；也可直接写完整 https 外链。
+- 单文件 < 50MB，仓库总体积超过 100MB 后建议改用外部对象存储，只在 yml 里保留外链。
 
 > 🎉 **每一份贡献都很珍贵，欢迎您的参与！**
 

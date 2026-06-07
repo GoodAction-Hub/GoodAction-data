@@ -1,11 +1,12 @@
-# 高考英语课文精讲：Traditional Festivals
+# 高考英语范文精讲：Traditional Festivals
 
-> **课型**：课文精读 + 高考作文素材积累
+> **课型**：范文精讲 + 高考作文素材积累
 > **适用对象**：高二 / 高三
 > **建议时长**：40–45 分钟
+> **范文来源**：用课本核心词汇组合撰写的高考范文（非教材原文）
 > **配套音频**：详情页"音频资源"区可在线收听老师讲解版（女声慢速）
 
-## 课文原文
+## 范文原文
 
 Traditional festivals are significant occasions that reflect a nation's culture and beliefs. During the Spring Festival, people decorate their houses with lanterns and set off firecrackers to drive away evil spirits. Children dress up in fancy costumes, while families gather together in a joyful atmosphere.
 

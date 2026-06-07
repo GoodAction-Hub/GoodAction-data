@@ -14,18 +14,18 @@
     - title: 听力原声（整卷，约 30 分钟）
       url: tutoring/assets/listening-what-does-the-man-drink/audio.mp3
 
-- slug: textbook-traditional-festivals
-  title: 高考英语课文精讲：Traditional Festivals
+- slug: essay-traditional-festivals
+  title: 高考英语范文精讲：Traditional Festivals
   instructor: 志愿者老师
   stage: 高中
   duration_min: 45
   tags:
     - 英语
-    - 课文精读
+    - 范文精讲
     - 高考作文
     - 词汇
-  summary: 围绕 Traditional Festivals 一篇 90 词短文，做逐句翻译 + 语法分析 + 高考考点拆解 + 7 大万能句型与高频词组整理，可直接作为高考作文素材库。配套女声慢速讲解音频。
-  body: tutoring/courses/textbook-traditional-festivals.md
+  summary: 一篇用课本核心词汇组的 90 词高考范文 Traditional Festivals，做逐句翻译 + 语法分析 + 高考考点拆解 + 7 大万能句型与高频词组整理，可直接作为高考作文素材库。配套女声慢速讲解音频。
+  body: tutoring/courses/essay-traditional-festivals.md
   audios:
-    - title: 课文精讲讲解音频（女声慢速，约 13 分钟）
-      url: tutoring/assets/textbook-traditional-festivals/audio.mp3
+    - title: 范文精讲讲解音频（女声慢速，约 13 分钟）
+      url: tutoring/assets/essay-traditional-festivals/audio.mp3

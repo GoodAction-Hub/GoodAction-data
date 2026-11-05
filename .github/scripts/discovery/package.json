@@ -1,0 +1,12 @@
+{
+  "name": "goodaction-activity-discovery",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "discover": "node discover.mjs"
+  },
+  "dependencies": {
+    "yaml": "2.9.1"
+  }
+}

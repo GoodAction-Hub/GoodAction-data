@@ -27,6 +27,20 @@ All activity data is stored in `data/activities.yml`; all restaurant data is sto
 
 If you are familiar with Git and Pull Requests, you can also directly edit the corresponding file and submit a Pull Request.
 
+## 每日自动发现 / Daily Discovery
+
+新增每日北京时间 09:23 的公益活动发现工作流，检索微信公众号公开文章、志愿服务平台、
+公益网站和其他公开网页，提取未结束活动、校验原文证据并去重，自动创建或更新数据审核 PR。
+不会自动合并，也不保证覆盖未被收录或需要登录的微信内容。
+
+启用需要配置 `TAVILY_API_KEY`、`OPENAI_API_KEY`，并允许 GitHub Actions 创建 PR。
+首次建议手动运行 `dry_run=true` 检查结果。
+详见[配置、覆盖范围、成本及审核说明](.github/scripts/discovery/README.md)。
+
+The daily workflow searches public sources, validates and deduplicates upcoming or ongoing
+public welfare activities, and opens a review PR. API secrets and Actions PR permissions
+are required; all discovered data requires human review before merging.
+
 ## 数据结构 / Data Structure
 
 ### 活动 / Activities

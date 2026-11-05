@@ -1,0 +1,105 @@
+name: Daily activity discovery
+
+on:
+  schedule:
+    # 01:23 UTC = 09:23 Asia/Shanghai. GitHub may delay scheduled runs.
+    - cron: '23 1 * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Search and upload evidence without changing data or opening a PR
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: daily-activity-discovery
+  cancel-in-progress: false
+
+jobs:
+  discover:
+    if: github.repository == 'GoodAction-Hub/GoodAction-data'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+      pull-requests: write
+    env:
+      DISCOVERY_DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run || false }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: .github/scripts/discovery/package-lock.json
+
+      - name: Install discovery dependencies
+        run: npm ci --prefix .github/scripts/discovery --ignore-scripts
+
+      - name: Run offline regression tests
+        run: npm test --prefix .github/scripts/discovery
+
+      - name: Preserve activities from the open automation branch
+        shell: bash
+        run: |
+          branch=automation/daily-activities
+          if git ls-remote --exit-code --heads origin "$branch" > /dev/null; then
+            git fetch --no-tags origin "$branch"
+            git show FETCH_HEAD:data/activities.yml > "$RUNNER_TEMP/pending-activities.yml"
+            ancestor=$(git merge-base HEAD FETCH_HEAD)
+            git show "$ancestor:data/activities.yml" > "$RUNNER_TEMP/pending-base.yml"
+            echo "PENDING_ACTIVITIES_FILE=$RUNNER_TEMP/pending-activities.yml" >> "$GITHUB_ENV"
+            echo "PENDING_BASE_FILE=$RUNNER_TEMP/pending-base.yml" >> "$GITHUB_ENV"
+          else
+            status=$?
+            # Exit 2 means no such branch; network/authentication errors must not discard pending data.
+            if [ "$status" -ne 2 ]; then exit "$status"; fi
+          fi
+
+      - name: Discover and validate public activities
+        id: discovery
+        env:
+          DISCOVERY_REPORT: ${{ runner.temp }}/discovery-report.json
+          TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_BASE_URL: ${{ vars.OPENAI_BASE_URL }}
+          OPENAI_MODEL: ${{ vars.OPENAI_MODEL }}
+          DISCOVERY_MAX_SOURCES: ${{ vars.DISCOVERY_MAX_SOURCES }}
+        run: node .github/scripts/discovery/discover.mjs
+
+      - name: Upload source evidence for review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: discovery-evidence
+          path: ${{ runner.temp }}/discovery-report.json
+          retention-days: 30
+          if-no-files-found: warn
+
+      - name: Open or update the data review PR
+        if: env.DISCOVERY_DRY_RUN != 'true' && steps.discovery.outputs.count != '0'
+        uses: peter-evans/create-pull-request@v8
+        with:
+          branch: automation/daily-activities
+          base: main
+          add-paths: data/activities.yml
+          commit-message: 'data(activity): add discovered public welfare activities'
+          title: 'data(activity): daily public welfare activity discovery'
+          body: |
+            ## 自动发现的公益活动 / Discovered Activities
+
+            每日检索微信公众号公开文章、志愿服务平台、公益网站及其他公开网页。
+            本 PR 会持续更新，保留尚未合并的活动。不会自动合并或直接修改 main。
+
+            [查看本次运行与原文证据 artifact](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+
+            合并前请逐条打开活动来源，核对公益属性、主办方、活动时间、地点及报名状态。
+            模型提取和证据匹配不能替代人工核验；公开搜索不保证覆盖全部微信文章或网页。
+            新增 PR 使用 GITHUB_TOKEN，不会触发其他 pull_request 工作流，请保留人工审核。

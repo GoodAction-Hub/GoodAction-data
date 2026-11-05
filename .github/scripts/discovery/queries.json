@@ -1,0 +1,34 @@
+[
+  {
+    "channel": "wechat",
+    "query": "{year} 公益活动 志愿者招募 报名",
+    "domains": ["mp.weixin.qq.com"]
+  },
+  {
+    "channel": "wechat",
+    "query": "{year} 公益论坛 公益大赛 征集",
+    "domains": ["mp.weixin.qq.com"]
+  },
+  {
+    "channel": "volunteer",
+    "query": "{year} 志愿服务 活动 招募 报名",
+    "domains": ["chinavolunteer.mca.gov.cn", "bjyouth.net", "zyz.org.cn"]
+  },
+  {
+    "channel": "charity",
+    "query": "{year} 公益活动 慈善 活动报名",
+    "domains": ["gongyi.qq.com", "gongyibao.cn", "chinadevelopmentbrief.org.cn"]
+  },
+  {
+    "channel": "web",
+    "query": "{year} {month}月 公益活动 志愿服务 报名"
+  },
+  {
+    "channel": "web",
+    "query": "{year} 公益慈善 论坛 会议 大赛 征集 报名"
+  },
+  {
+    "channel": "web",
+    "query": "{next_year} 公益活动 志愿者招募 公益论坛"
+  }
+]
